@@ -5,9 +5,15 @@
     <x-slot name="header">
        Edit Playlist {{$playlist->name}}
     </x-slot>
-    <form action="{{ route('playlists.create') }}" method="post" enctype="multipart/form-data" novalidate>
+
+    <div class="w-full lg:w-12">
+        <img class="rounded-lg w-full mb-6" src="{{Storage::url($playlist->thumbnail)}}" >
+    </div>
+
+    <form action="{{ route('playlists.edit', $playlist->slug) }}" method="post" enctype="multipart/form-data" novalidate>
+        @method('put')
         @include('playlist._form-control', [
-            'submit' => 'Create'
+            'submit' => 'Update'
         ])
 
     </form>

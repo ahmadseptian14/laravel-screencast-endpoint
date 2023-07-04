@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Routing\Route;
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class PlaylistRequest extends FormRequest
@@ -21,10 +23,10 @@ class PlaylistRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(Route $route)
     {
         return [
-            'thumbnail' => 'required|image|mimes:png,jpg,jpeg',
+            'thumbnail' => ['image', 'mimes:png,jpg,jpeg', Rule::requiredIf($route->getActionName() == "App\Http|Contollers\Screencast\PlaylistConttroller@store")],
             'name' => 'required',
             'price' => 'required|numeric',
             'description' => 'required',

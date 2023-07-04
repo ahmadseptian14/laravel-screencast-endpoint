@@ -21,7 +21,10 @@ Route::middleware('auth')->group(function () {
         Route::get('{playlist:slug}/edit', [PlaylistController::class, 'edit'])->name('playlists.edit');
         Route::put('{playlist:slug}/edit', [PlaylistController::class, 'update']);
         Route::delete('{playlist:slug}/delete', [PlaylistController::class, 'destroy'])->name('playlists.delete');
+<<<<<<< HEAD
     });
+=======
+>>>>>>> 7aedd114d72900b0a2f3fbb058ae4cf5e3b2f477
 
     Route::prefix('videos')->middleware('permission:create playlists')->group(function () {
         Route::get('create/into/{playlist:slug}', [VideoController::class, 'create'])->name('videos.create');

@@ -47,17 +47,25 @@
                                     </x-td>
                                     <x-td>
                                         <div class="flex">
+<<<<<<< HEAD
                                             <a href="{{ route('videos.create', $playlist->slug) }}"
                                                 class="mr-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Tambah</a>
                                             <a href="{{ route('playlists.edit', $playlist->slug) }}"
                                                 class="mr-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Edit</a>
                                             <div x-data="{ modalIsOpen: false }">
                                                 <x-modal  state="modalIsOpen" x-show="modalIsOpen" title="Anda yakin?">
+=======
+                                            <a href="{{ route('playlists.edit', $playlist->slug) }}"
+                                                class="mr-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Edit</a>
+                                            <div x-data="{ open: false }">
+                                                <x-modal x-show="open" title="Anda yakin?">
+>>>>>>> 7aedd114d72900b0a2f3fbb058ae4cf5e3b2f477
                                                     <div class="flex">
                                                         <form class="mr-2" action="{{ route('playlists.delete', $playlist->slug) }}"
                                                             method="post">
                                                             @csrf
                                                             @method('delete')
+<<<<<<< HEAD
                                                             <x-button>
                                                                 Yes
                                                             </x-button>
@@ -69,6 +77,22 @@
                                                     </div>
                                                 </x-modal>
                                                 <button @click="modalIsOpen = true"
+=======
+                                                            <button
+                                                                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+                                                                Yes
+                                                            </button>
+                                                        </form>
+                                                        <button
+                                                            type="button"
+                                                            @click="open = false"
+                                                            class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full">
+                                                            No
+                                                        </button>
+                                                    </div>
+                                                </x-modal>
+                                                <button @click="open = true"
+>>>>>>> 7aedd114d72900b0a2f3fbb058ae4cf5e3b2f477
                                                     class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full">
                                                     Hapus
                                                 </button>

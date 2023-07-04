@@ -26,7 +26,7 @@ class PlaylistRequest extends FormRequest
     public function rules(Route $route)
     {
         return [
-            'thumbnail' => ['image', 'mimes:png,jpg,jpeg', Rule::requiredIf($route->getActionName() == "App\Http|Contollers\Screencast\PlaylistConttroller@store")],
+            'thumbnail' => ['image', 'mimes:png,jpg,jpeg', Rule::requiredIf($route->getActionName() == "App\Http\Controllers\Screencast\PlaylistController@store")],
             'name' => 'required',
             'price' => 'required|numeric',
             'description' => 'required',

@@ -60,7 +60,7 @@ class TagController extends Controller
      */
     public function show(Tag $tag)
     {
-       
+
     }
 
     /**
@@ -73,7 +73,7 @@ class TagController extends Controller
     {
         return view('tags.edit', [
             'tag' => $tag,
-            'title' => "Edit tag: {$tag->name}" 
+            'title' => "Edit tag: {$tag->name}"
         ]);
     }
 

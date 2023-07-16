@@ -1,9 +1,9 @@
 <x-app-layout>
     <x-slot name="title">
-        Your Playlists
+        {{ $title }}
     </x-slot>
     <x-slot name="header">
-        Your Playlists
+        {{ $title }}
     </x-slot>
     <div class="flex flex-col">
         <div class="overflow-x-auto sm:mx-0.5 lg:mx-0.5">
@@ -13,42 +13,33 @@
                         <thead class="bg-gray-200 border-b">
                             <tr>
                                 <x-th>#</x-th>
-                                <x-th>Name</x-th>
-                                <x-th>Published</x-th>
+                                <x-th>Title</x-th>
+                                <x-th>Intro</x-th>
                                 <x-th>Action</x-th>
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($playlists as $i => $playlist)
+                            @forelse ($videos as $i => $video)
                                 <tr>
-                                    <x-td>{{ $i + $playlists->firstItem() }}</x-td>
-                                    <x-td>
-                                        <div>
-                                            <div class="mb-2">
-                                                <a class="block" href="{{route('videos.table', $playlist->slug)}}">
-                                                {{ $playlist->name }}
-                                            </a>
-                                            </div>
-                                            @foreach ($playlist->tags as $tag)
-                                            <span class="bg-green-500 text-green-900 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-green-500 dark:text-green-900">
-                                                {{$tag->name}}
-                                            </span>
-                                            @endforeach
-                                        </div>
-                                    </x-td>
-                                    <x-td>
-                                        {{ $playlist->created_at->format('d F, Y') }}
+                                    <x-td>{{ $i + $videos->firstItem() }}</x-td>
+                                    <x-td>{{ $video->title }}</x-td>
+                                    <x-td class="text-xs uppercase font-semibold">{{ $video->intro ? 'Yes' : 'No' }}
                                     </x-td>
                                     <x-td>
                                         <div class="flex">
-                                            <a href="{{ route('videos.create', $playlist->slug) }}"
-                                                class="mr-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Tambah</a>
-                                            <a href="{{ route('playlists.edit', $playlist->slug) }}"
-                                                class="mr-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Edit</a>
+                                            <a class="mr-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+                                                href="{{ route('videos.edit', [$playlist, $video->unique_video_id]) }}">Edit</a>
                                             <div x-data="{ modalIsOpen: false }">
-                                                <x-modal  state="modalIsOpen" x-show="modalIsOpen" title="Anda yakin?">
+                                                <x-modal state="modalIsOpen" x-show="modalIsOpen" title="Anda yakin?">
+                                                    <div class="mb-5">
+                                                        <h4 class="text-lg capitalize">{{ $video->title }}</h4>
+                                                        <span class="text-xs uppercase text-gray-500">Episode {{ $video->episode }}
+                                                        -
+                                                        Runtime {{ $video->runtime }}</span>
+                                                    </div>
                                                     <div class="flex">
-                                                        <form class="mr-2" action="{{ route('playlists.delete', $playlist->slug) }}"
+                                                        <form class="mr-2"
+                                                            action="{{ route('videos.delete', [$playlist->slug, $video->unique_video_id]) }}"
                                                             method="post">
                                                             @csrf
                                                             @method('delete')
@@ -56,8 +47,7 @@
                                                                 Yes
                                                             </x-button>
                                                         </form>
-                                                        <x-button
-                                                            @click="modalIsOpen = false">
+                                                        <x-button @click="modalIsOpen = false">
                                                             No
                                                         </x-button>
                                                     </div>
@@ -75,7 +65,7 @@
                             @endforelse
                         </tbody>
                     </x-table>
-                    {{ $playlists->links() }}
+                    {{ $videos->links() }}
                 </div>
             </div>
         </div>

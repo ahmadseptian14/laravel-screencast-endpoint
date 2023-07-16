@@ -21,14 +21,15 @@ Route::middleware('auth')->group(function () {
         Route::get('{playlist:slug}/edit', [PlaylistController::class, 'edit'])->name('playlists.edit');
         Route::put('{playlist:slug}/edit', [PlaylistController::class, 'update']);
         Route::delete('{playlist:slug}/delete', [PlaylistController::class, 'destroy'])->name('playlists.delete');
-<<<<<<< HEAD
     });
-=======
->>>>>>> 7aedd114d72900b0a2f3fbb058ae4cf5e3b2f477
 
     Route::prefix('videos')->middleware('permission:create playlists')->group(function () {
+        Route::get('table/{playlist:slug}', [VideoController::class, 'table'])->name('videos.table');
         Route::get('create/into/{playlist:slug}', [VideoController::class, 'create'])->name('videos.create');
         Route::post('create/into/{playlist:slug}', [VideoController::class, 'store']);
+        Route::get('edit/{playlist:slug}/{video:unique_video_id}', [VideoController::class, 'edit'])->name('videos.edit');
+        Route::put('edit/{playlist:slug}/{video:unique_video_id}', [VideoController::class, 'update']);
+        Route::delete('delete/{playlist:slug}/{video:unique_video_id}', [VideoController::class, 'destroy'])->name('videos.delete');
 
     });
 

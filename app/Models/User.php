@@ -12,7 +12,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles, HasApiTokens;
     // use HasRoles;
 
     /**
@@ -48,5 +48,15 @@ class User extends Authenticatable
     public function playlists()
     {
         return $this->hasMany(Playlist::class);
+    }
+
+    public function gravatar()
+    {
+        return 'picture';
+    }
+
+    public function purchases()
+    {
+        return $this->belongsToMany(Playlist::class, 'purchased_playlist', 'user_id', 'playlist_id');
     }
 }

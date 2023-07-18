@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Order\Cart;
+use App\Models\Order\Order;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Screencast\Playlist;
 use Spatie\Permission\Traits\HasRoles;
@@ -87,5 +88,10 @@ class User extends Authenticatable
     public function allreadyInCart(Playlist $playlist)
     {
         return (bool) $this->carts()->where('playlist_id', $playlist->id)->first();
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
     }
 }
